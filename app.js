@@ -20,3 +20,15 @@ $("#envoi").click(function(){
 	});
 });
 
+
+	$.ajax({
+			url:'http://192.168.1.50/json-db',
+			data: {
+			task: 'get',
+			key: 'dimblog',
+			},
+			success : function(data){
+			console.log(data);
+
+			}
+		});
