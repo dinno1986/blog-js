@@ -8,6 +8,15 @@ $("#envoi").click(function(){
 	blog.push(recup);
 	console.log(blog);
 
-
+	var app={name:"dim"};
+	
+	$.ajax({
+		url: 'http://192.168.1.50/json-db',
+		data : {
+			task : 'set',
+			key : 'dimblog',
+			value :  JSON.stringify(blog),
+		}
+	});
 });
 
