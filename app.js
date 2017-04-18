@@ -5,8 +5,8 @@
 $("#envoi").click(function(){
 	var titre = $("#title").val();
 	var texte = $("#text").val();
-
-	var recup = {"tit":titre, "tex":texte};
+	var uneDate = new Date();
+	var recup = {"tit":titre, "tex":texte, "dat":uneDate};
 //	blog.push(recup);
 //	console.log(blog);
 
@@ -59,6 +59,8 @@ function afficher( listeArticles ){
 
 		$("#intitule").append('<li  role="presentation"><a class="clickTitre" value="'+i+'" href="#">'+(article.tit)+'</a></li>');
 		$("#article").append( article.tex );
+		//console.log(article.dat);
+		$("#horloge").html(article.dat);
 		$("#article").html("");
 
 	}
@@ -67,9 +69,22 @@ function afficher( listeArticles ){
 		var indArt = $(this).attr('value');
 		//console.log(indArt);
 		$("#article").html(listeArticles[indArt].tex);
-
 	});
-
 };
+
+
+$("#text").on('keyup',function(){
+
+var convertir = new showdown.Converter();
+    text      = $("#text").val();
+    var html      = convertir.makeHtml(text);
+$("#text2").html(html);
+
+});
+
+
+
+
+
 
 
