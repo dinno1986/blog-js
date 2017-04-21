@@ -1,14 +1,8 @@
-
-
-
-
 $("#envoi").click(function(){
 	var titre = $("#title").val();
 	var texte = $("#text").val();
 	var uneDate = new Date();
 	var recup = {"tit":titre, "tex":texte, "dat":uneDate};
-
-
 	//envoyer	
 	$.ajax({
 		url: 'http://192.168.1.50/json-db',
@@ -22,7 +16,7 @@ $("#envoi").click(function(){
 
 
 	//appeler la fonction
-	$.ajax({
+$.ajax({
 		url:'http://192.168.1.50/json-db',
 		data: {
 			task: 'get',
@@ -34,13 +28,9 @@ $("#envoi").click(function(){
 			list ( JSON.parse(data))
 				console.log(mesArticles);//pour trouver l'ID des objets
 			}
-		});
+});
 
-
-	
-
-
-	function afficher( listeArticles ){
+function afficher( listeArticles ){
 
 		for ( var i=0 ; i<listeArticles.length ; i++ ){
 			var article = listeArticles[i];
@@ -59,21 +49,19 @@ $("#envoi").click(function(){
 			//console.log(indArt);
 			$("#article").html(listeArticles[indArt].tex);
 		});
-	};
+};
 
 
-	$("#text").on('keyup',function(){
+$("#text").on('keyup',function(){
 
 		var convertir = new showdown.Converter();
 		text      = $("#text").val();
 		var html      = convertir.makeHtml(text);
 		$("#text2").html(html);
 
-	});
+});
 
-
-
-	function list( mesArticles ) {
+function list( mesArticles ) {
 
 		for ( var i=0 ; i<mesArticles.length ; i++ ) {
 			var article = mesArticles[i];
@@ -81,26 +69,49 @@ $("#envoi").click(function(){
 
 			$(".icone").append('<li role="presentation"><a class="clickTitreAdmin" value="'+i+'" href="#" >'+article.tit+'</a></li>');
 			$(".icone").append('<button class="suprim" data-id="' + article._id + '">Suppr</button>');
+			$(".icone").append('<button class="modif" data-texte="' + article._id + '">Modif</button>');
 		}
 	
 
 		 $(".suprim").click(function(){
-			var cur_Id = $(this).data('id');
-			console.log(cur_Id)
+			var idEnCours = $(this).data('id');
+			console.log(idEnCours)
 	 		$.ajax({  
 				url:'http://192.168.1.50/json-db',
 					data: {
 						task: 'delete',
-						_id: cur_Id,
+						_id: idEnCours,
 
 	 				}
 
 			});
 
-		});
+		 });
 
 
-	}
+		 $(".clickTitreAdmin").click(function(){
+		 	var ind = $(this).attr('value');
+		 	console.log(ind);
+		 	$("#title").val(mesArticles[ind].tit);
+		 	$("#text").val( mesArticles[ind].tex);
+		 })
+
+		 $(".modif").click(function(){
+		 	var titre = $("#title").val();
+			var texte = $("#text").val();
+		 	var modification = $(this).data('texte');
+		
+			$.ajax({
+				url:'http://192.168.1.50/json-db',
+				data: {
+					task: 'update',
+					_id: modification,
+					value: JSON.stringify( {tit:titre,tex:texte}),
+				}
+	        });
+		 });
+
+};
 
 
 
