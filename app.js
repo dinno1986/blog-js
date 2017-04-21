@@ -1,9 +1,11 @@
+
 $("#envoi").click(function(){
 	var titre = $("#title").val();
 	var texte = $("#text").val();
 	var uneDate = new Date();
 	var recup = {"tit":titre, "tex":texte, "dat":uneDate};
 	//envoyer	
+	
 	$.ajax({
 		url: 'http://192.168.1.50/json-db',
 		data : {
@@ -13,7 +15,6 @@ $("#envoi").click(function(){
 		}
 	});
 });
-
 
 	//appeler la fonction
 $.ajax({
@@ -92,13 +93,13 @@ function list( mesArticles ) {
 		 $(".clickTitreAdmin").click(function(){
 		 	var ind = $(this).attr('value');
 		 	console.log(ind);
-		 	$("#title").val(mesArticles[ind].tit);
-		 	$("#text").val( mesArticles[ind].tex);
+		 	$("#title2").val(mesArticles[ind].tit);
+		 	$("#text3").val( mesArticles[ind].tex);
 		 })
 
 		 $(".modif").click(function(){
-		 	var titre = $("#title").val();
-			var texte = $("#text").val();
+		 	var titre = $("#title2").val();
+			var texte = $("#text3").val();
 		 	var modification = $(this).data('texte');
 		
 			$.ajax({
@@ -113,5 +114,13 @@ function list( mesArticles ) {
 
 };
 
-
+$("#clearbutt").click(function(){
+	$.ajax({
+	url:'http://192.168.1.50/json-db',
+		data: {
+			task: 'delete',
+			key: 'dimblog'
+		}
+	});
+});
 
