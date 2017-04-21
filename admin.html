@@ -7,34 +7,40 @@
 </head>
 
 <body>
+
+
 <nav class="navbar navbar-default navbar-static-top">
   <div class="container">
     <a href="index.html"><button type="button" class="btn btn-info" id="lien">Blog</button>  </a>
   </div>
 </nav>
-
 <div class="container">
-	<form>
-	<div class="form-group" align="center">
-      <label for="titre">Rentre ton titre</label>
+
+<form>
+	
+	  <div class="form-group">
+      <center> <label for="titre">Rentre ton titre</label> </center>
     	<input type="titre" class="form-control" id="title" placeholder="Titre">
-  </div>
+    </div>
   
 
 
-<div class="form-group" align="center">
-    <textarea class="form-control"  rows="5" id="text"></textarea>
+<div class="form-group">
+  <textarea class="form-control"  rows="5" id="text"></textarea>
+  <label for= "markdown"></label>
+<div id="text2">
 </div>
-<div class="form-group" align="center">
-    <textarea class="form-control"  rows="5" id="text2"></textarea>
-</div>
-
 </form>
-
-
-	<button type="button" class="btn btn-info btn-block" id="envoi">Envoyer</button>
- 
 </div>
+
+
+<div class="icone">
+	<button type="button" class="btn btn-info" id="envoi">Envoyer</button>
+  <button type="button" class="btn btn-danger" id="clearbutt">Supprimer</button>
+  <button type="button" class="btn btn-success" id="modifbutt">Modifier</button>
+</div>
+
+
   
   <script src="node_modules/jquery/dist/jquery.js"></script>
   <script src="node_modules/markdown/lib/markdown.js"/></script>
