@@ -1,6 +1,7 @@
 
 $("#envoi").click(function(){
 	console.log('yufzytrf');
+
 	var titre = $("#title").val();
 	var texte = $("#text").val();
 	var uneDate = new Date();
@@ -8,6 +9,7 @@ $("#envoi").click(function(){
 	//envoyer	
 	
 	$.ajax({
+
 		url: '/Dimblog',
 		method:"POST",
 		data : {
@@ -20,6 +22,7 @@ $("#envoi").click(function(){
 
 	//appeler la fonction
 $.ajax({
+
 		url:'/Koko',
 		data: {
 			task: 'get',
@@ -105,6 +108,7 @@ function list( mesArticles ) {
 		 	var modification = $(this).data('texte');
 		
 			$.ajax({
+
 				url:'/Update',
 				data: {
 					task: 'update',
