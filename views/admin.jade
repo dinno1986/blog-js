@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    link(href='bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    title blog
+  body
+    nav.navbar.navbar-default.navbar-static-top
+      .container
+        a(href='index')
+          button#lien.btn.btn-info(type='button') Blog
+    .container
+      form(method='POST', action='/Dimblog')
+        .form-group
+          center
+            label(for='titre') Rentre ton titre
+          input#title.form-control(type='texte', placeholder='Titre' name='titre')
+        .form-group
+          center
+            label(for='text') Rentre ton texte
+          textarea#text.form-control(rows='5', placeholder='Texte' name='text')
+          label(for='markdown')
+          #text2
+    .icone
+      button#envoi.btn.btn-info(type='button') Envoyer
+      button#clearbutt.btn.btn-danger(type='button') Réinitialiser
+    form
+      .form-group
+        center
+          label(for='titre') Modifie ton titre
+        input#title2.form-control(type='texte', placeholder='Titre')
+      .form-group
+        center
+          label(for='titre') Modifie ton texte
+        textarea#text3.form-control(rows='5', placeholder='Texte')
+    script(src='node_modules/jquery/dist/jquery.js')
+    script(src='node_modules/markdown/lib/markdown.js')
+    script(src='node_modules/showdown/dist/showdown.js')
+    script(src='app.js')
