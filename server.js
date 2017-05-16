@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var bodyparser = require('body-parser');
 var fs = require('fs');
+var uuid = require('uuid/v4');
 
 app.listen(3000, function(){
 	console.log('server ok');
@@ -46,9 +47,10 @@ app.get('/index', function(req,res){
 	res.render('index');
 })
 //route pour enregistrer
-app.post('/Dimblog', function (req, res) {
+app.post('/Dimblog', function (req, res) { 
 	var save = JSON.parse(req.body.value);
-	articles.push (save);
+	save.id = uuid();
+	articles.push(save);
 	sauvegarde();
 	res.send('ok');
    //console.log(articles);
@@ -59,8 +61,23 @@ app.get('/Koko', function (req, res){
 	res.send(JSON.stringify(articles));
 });
 //route pour effacer
-app.get('/Delete', function(req, res){
+app.post('/Delete', function(req, res){
+	var id = (req.body.id);
+	//console.log(req.body)
+	console.log(id);
+	charger();
+	for (var i =0; i<articles.length; i++){
+		console.log(articles);
+		if (articles[i].id == id) {
+			articles.splice(articles[i],1);
 
-})
+		}
+	sauvegarde(articles);
+	}
+});
+
+
+
+
 
 

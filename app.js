@@ -29,9 +29,11 @@ $.ajax({
 			key: 'dimblog',
 		},
 		success : function(data){
+			if(data !==null){
 			var mesArticles = JSON.parse(data);
 			afficher( JSON.parse(data));
 			list ( JSON.parse(data))
+		}
 				console.log(mesArticles);//pour trouver l'ID des objets
 			}
 });
@@ -74,19 +76,20 @@ function list( mesArticles ) {
 			console.log( article );
 
 			$(".icone").append('<li role="presentation"><a class="clickTitreAdmin" value="'+i+'" href="#" >'+article.tit+'</a></li>');
-			$(".icone").append('<button class="suprim" data-id="' + article._id + '">Suppr</button>');
-			$(".icone").append('<button class="modif" data-texte="' + article._id + '">Modif</button>');
+			$(".icone").append('<button id="supp" class="suprim" data-id="' + article.id + '">Suppr</button>');
+			$(".icone").append('<button class="modif" data-texte="' + article.id + '">Modif</button>');
 		}
 	
-
-		 $(".suprim").click(function(){
-			var idEnCours = $(this).data('id');
+		$(".icone").delegate('#supp','click',function(){
+		 // $(".suprim").click(function(){
+			var idEnCours = $(this).attr('data-id');
 			console.log(idEnCours)
 	 		$.ajax({  
 				url:'/Delete',
+				method: 'post',
 					data: {
-						task: 'delete',
-						_id: idEnCours,
+						
+						id: idEnCours,
 
 	 				}
 
