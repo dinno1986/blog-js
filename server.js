@@ -45,7 +45,8 @@ app.get('/', function(req, res){
 
 app.get('/index', function(req,res){
 	res.render('index');
-})
+});
+
 //route pour enregistrer
 app.post('/Dimblog', function (req, res) { 
 	var save = JSON.parse(req.body.value);
@@ -53,21 +54,21 @@ app.post('/Dimblog', function (req, res) {
 	articles.push(save);
 	sauvegarde();
 	res.send('ok');
-   //console.log(articles);
-   		
+   //console.log(articles);  		
 });
 //route pour afficher
 app.get('/Koko', function (req, res){
 	res.send(JSON.stringify(articles));
 });
+
 //route pour effacer
 app.post('/Delete', function(req, res){
 	var id = (req.body.id);
 	//console.log(req.body)
-	console.log(id);
+	//console.log(id);
 	charger();
 	for (var i =0; i<articles.length; i++){
-		console.log(articles);
+		//console.log(articles);
 		if (articles[i].id == id) {
 			articles.splice(articles[i],1);
 
@@ -75,6 +76,21 @@ app.post('/Delete', function(req, res){
 	sauvegarde(articles);
 	}
 });
+
+//route pour modifier
+//app.post('/Update', function(req,res){
+	//var change =(req.body);
+	//console.log(req.body);
+	//harger();
+	// for (var i=0; i<articles.length; i++){
+	// 		if (articles[i].id == id) {
+	// 			articles[i] = JSON.parse(req.body.value);
+	
+	// 	}
+	// 	sauvegarde(articles);
+	// }
+
+//});
 
 
 

@@ -1,4 +1,4 @@
-
+load();
 $("#envoi").click(function(){
 	console.log('yufzytrf');
 
@@ -18,9 +18,13 @@ $("#envoi").click(function(){
 			value :  JSON.stringify(recup),
 		}
 	});
+	$("#titre").val("");
+	$("#text").val("");
+	load();
 });
 
 	//appeler la fonction
+	function load(){
 $.ajax({
 
 		url:'/Koko',
@@ -37,18 +41,19 @@ $.ajax({
 				console.log(mesArticles);//pour trouver l'ID des objets
 			}
 });
-
+};
 function afficher( listeArticles ){
-
+			$("#intitule").html("");
+			$("#article").html("");
 		for ( var i=0 ; i<listeArticles.length ; i++ ){
 			var article = listeArticles[i];
 
 			//console.log( article );
 			$("#intitule").append('<li role="presentation"><a class="clickTitre" value="'+i+'" href="#">'+(article.tit)+'</a></li>');
-			$("#article").append( article.tex );
+			 $("#article").append( article.tex );
 			$("#horloge").html(article.dat);
 			//console.log(article.dat);
-			$("#article").html("");
+			// $("#article").html("");
 
 		}
 		$(".clickTitre").click(function(){
@@ -70,17 +75,17 @@ $("#text").on('keyup',function(){
 });
 
 function list( mesArticles ) {
-
+		$("#icone").html("");
 		for ( var i=0 ; i<mesArticles.length ; i++ ) {
 			var article = mesArticles[i];
 			console.log( article );
 
-			$(".icone").append('<li role="presentation"><a class="clickTitreAdmin" value="'+i+'" href="#" >'+article.tit+'</a></li>');
-			$(".icone").append('<button id="supp" class="suprim" data-id="' + article.id + '">Suppr</button>');
-			$(".icone").append('<button class="modif" data-texte="' + article.id + '">Modif</button>');
+			$("#icone").append('<li role="presentation"><a class="clickTitreAdmin" value="'+i+'" href="#" >'+article.tit+'</a></li>');
+			$("#icone").append('<button id="supp" class="suprim" data-id="' + article.id + '">Suppr</button>');
+			$("#icone").append('<button id="modifier" class="modif" data-texte="' + article.id + '">Modif</button>');
 		}
 	
-		$(".icone").delegate('#supp','click',function(){
+		$("#icone").delegate('#supp','click',function(){
 		 // $(".suprim").click(function(){
 			var idEnCours = $(this).attr('data-id');
 			console.log(idEnCours)
@@ -94,7 +99,7 @@ function list( mesArticles ) {
 	 				}
 
 			});
-
+	 		load();
 		 });
 
 
@@ -105,7 +110,8 @@ function list( mesArticles ) {
 		 	$("#text3").val( mesArticles[ind].tex);
 		 })
 
-		 $(".modif").click(function(){
+			$(".icone").delegate('#modifier','click',function(){
+		 //$(".modif").click(function(){
 		 	var titre = $("#title2").val();
 			var texte = $("#text3").val();
 		 	var modification = $(this).data('texte');
@@ -113,12 +119,14 @@ function list( mesArticles ) {
 			$.ajax({
 
 				url:'/Update',
+				method:'post',
 				data: {
 					task: 'update',
 					_id: modification,
 					value: JSON.stringify( {tit:titre,tex:texte}),
 				}
 	        });
+	        load();
 		 });
 
 };
@@ -131,5 +139,6 @@ $("#clearbutt").click(function(){
 			key: 'dimblog'
 		}
 	});
+	load();
 });
 
